@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>關於我</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --night-0: #03061a;
+      --night-1: #0a1238;
+      --night-2: #142060;
+      --star: #f4f6ff;
+      --star-soft: rgba(232, 238, 255, 0.78);
+      --star-dim: rgba(200, 212, 255, 0.55);
+      --glow: rgba(150, 180, 255, 0.45);
+      --card-bg: rgba(14, 22, 64, 0.55);
+      --card-border: rgba(190, 205, 255, 0.22);
+      --chip-bg: rgba(255, 255, 255, 0.06);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { background: var(--night-0); }
+
+    body {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+      overflow-x: hidden;
+      font-family: "Noto Sans TC", system-ui, sans-serif;
+      color: var(--star);
+      background:
+        radial-gradient(ellipse 60% 45% at 78% 18%, rgba(88, 70, 190, 0.35), transparent 70%),
+        radial-gradient(ellipse 55% 40% at 15% 85%, rgba(40, 90, 200, 0.30), transparent 70%),
+        radial-gradient(ellipse 120% 80% at 50% 110%, var(--night-2), transparent 60%),
+        linear-gradient(180deg, var(--night-0) 0%, var(--night-1) 55%, #0d1748 100%);
+      background-attachment: fixed;
+    }
+
+    /* 星空層：細小星點 */
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: -50%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::before {
+      background-image:
+        radial-gradient(1px 1px at 20px 30px, var(--star), transparent),
+        radial-gradient(1px 1px at 140px 70px, var(--star-soft), transparent),
+        radial-gradient(1px 1px at 60px 160px, var(--star-dim), transparent),
+        radial-gradient(1px 1px at 190px 190px, var(--star), transparent),
+        radial-gradient(1px 1px at 230px 40px, var(--star-dim), transparent),
+        radial-gradient(1px 1px at 100px 230px, var(--star-soft), transparent),
+        radial-gradient(1px 1px at 260px 140px, var(--star-dim), transparent);
+      background-size: 280px 260px;
+      opacity: 0.8;
+      animation: drift 240s linear infinite;
+    }
+
+    /* 星空層：較亮、會閃爍的星 */
+    body::after {
+      background-image:
+        radial-gradient(1.6px 1.6px at 50px 80px, var(--star), transparent),
+        radial-gradient(2px 2px at 330px 210px, var(--star), transparent),
+        radial-gradient(1.4px 1.4px at 210px 360px, var(--star-soft), transparent),
+        radial-gradient(1.8px 1.8px at 420px 60px, var(--star), transparent),
+        radial-gradient(1.4px 1.4px at 120px 420px, var(--star-soft), transparent);
+      background-size: 480px 480px;
+      animation: drift 160s linear infinite reverse, twinkle 4.5s ease-in-out infinite;
+    }
+
+    @keyframes drift {
+      from { transform: translate3d(0, 0, 0); }
+      to   { transform: translate3d(-280px, -260px, 0); }
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.95; }
+      50%      { opacity: 0.35; }
+    }
+
+    /* 流星 */
+    html::after {
+      content: "";
+      position: fixed;
+      top: 14%;
+      left: 82%;
+      width: 140px;
+      height: 1.5px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.9));
+      border-radius: 999px;
+      transform: rotate(145deg) translateX(0);
+      opacity: 0;
+      pointer-events: none;
+      animation: meteor 9s ease-in 3s infinite;
+      z-index: 0;
+    }
+
+    @keyframes meteor {
+      0%   { opacity: 0; transform: rotate(145deg) translateX(0); }
+      3%   { opacity: 1; }
+      12%  { opacity: 0; transform: rotate(145deg) translateX(420px); }
+      100% { opacity: 0; transform: rotate(145deg) translateX(420px); }
+    }
+
+    .card {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 460px;
+      padding: 52px 36px 42px;
+      text-align: center;
+      background:
+        linear-gradient(160deg, rgba(255,255,255,0.07), transparent 40%),
+        var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 28px;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.03) inset,
+        0 30px 80px rgba(0, 0, 10, 0.55),
+        0 0 60px rgba(90, 120, 255, 0.12);
+      animation: rise 0.9s ease-out both;
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .avatar {
+      position: relative;
+      width: 112px;
+      height: 112px;
+      margin: 0 auto 22px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-family: "Noto Serif TC", serif;
+      font-size: 46px;
+      font-weight: 700;
+      color: #0a1238;
+      background:
+        radial-gradient(circle at 35% 30%, #ffffff 0%, #e6ecff 35%, #aebcf0 75%, #7d8fd6 100%);
+      box-shadow:
+        0 0 24px var(--glow),
+        0 0 70px rgba(120, 150, 255, 0.25);
+    }
+
+    /* 環繞頭像的軌道 */
+    .avatar::after {
+      content: "";
+      position: absolute;
+      inset: -12px;
+      border-radius: 50%;
+      border: 1px dashed rgba(200, 215, 255, 0.35);
+      animation: orbit 30s linear infinite;
+    }
+
+    .avatar::before {
+      content: "";
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      width: 6px;
+      height: 6px;
+      margin-left: -3px;
+      border-radius: 50%;
+      background: var(--star);
+      box-shadow: 0 0 10px var(--star), 0 0 18px var(--glow);
+      transform-origin: 3px 71px;
+      animation: orbit 12s linear infinite;
+    }
+
+    @keyframes orbit {
+      to { transform: rotate(360deg); }
+    }
+
+    h1 {
+      font-family: "Noto Serif TC", serif;
+      font-size: 2.1rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-shadow: 0 0 18px rgba(170, 195, 255, 0.55);
+    }
+
+    .subtitle {
+      margin-top: 8px;
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: var(--star-soft);
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 34px 0 16px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      color: var(--star-dim);
+    }
+
+    .section-title::before,
+    .section-title::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(200, 215, 255, 0.4), transparent);
+    }
+
+    .interests {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      list-style: none;
+    }
+
+    .interests li {
+      padding: 8px 18px;
+      border-radius: 999px;
+      background: var(--chip-bg);
+      border: 1px solid var(--card-border);
+      font-size: 0.95rem;
+      transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+
+    .interests li:hover {
+      transform: translateY(-3px);
+      background: rgba(150, 175, 255, 0.14);
+      border-color: rgba(210, 222, 255, 0.5);
+      box-shadow: 0 0 18px rgba(140, 170, 255, 0.35);
+    }
+
+    blockquote {
+      position: relative;
+      margin-top: 34px;
+      padding: 22px 26px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(120, 140, 255, 0.10), rgba(255, 255, 255, 0.03));
+      border: 1px solid rgba(190, 205, 255, 0.14);
+      font-family: "Noto Serif TC", serif;
+      font-size: 1.05rem;
+      line-height: 1.8;
+      letter-spacing: 0.04em;
+      color: var(--star);
+    }
+
+    blockquote::before {
+      content: "“";
+      position: absolute;
+      top: -20px;
+      left: 16px;
+      font-size: 3.5rem;
+      line-height: 1;
+      color: #c9d6ff;
+      opacity: 0.7;
+      text-shadow: 0 0 12px var(--glow);
+    }
+
+    @media (max-width: 480px) {
+      .card { padding: 44px 22px 34px; }
+      h1 { font-size: 1.8rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="avatar">S</div>
+    <h1>Sherry</h1>
+    <p class="subtitle">很高興認識你 👋</p>
+
+    <p class="section-title">我的興趣</p>
+    <ul class="interests">
+      <li>✈️ 旅行</li>
+      <li>✍️ 文字創作</li>
+    </ul>
+
+    <blockquote>我就站在這裡，為了相遇而存在。</blockquote>
+  </main>
+</body>
+</html>
