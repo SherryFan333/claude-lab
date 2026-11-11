@@ -3,10 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>關於我</title>
+  <title>Sherry｜接案作品集</title>
+  <meta name="description" content="Sherry 的接案作品集：品牌文案、網站設計與內容企劃，為你的品牌說一個好故事。">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@600;700&display=swap" rel="stylesheet">
+  <script>document.documentElement.classList.add('js');</script>
   <style>
     :root {
       --night-0: #03061a;
@@ -16,44 +18,51 @@
       --star-soft: rgba(232, 238, 255, 0.78);
       --star-dim: rgba(200, 212, 255, 0.55);
       --glow: rgba(150, 180, 255, 0.45);
+      --accent: #a9b8ff;
+      --accent-2: #c7a9ff;
       --card-bg: rgba(14, 22, 64, 0.55);
-      --card-border: rgba(190, 205, 255, 0.22);
-      --chip-bg: rgba(255, 255, 255, 0.06);
+      --card-border: rgba(190, 205, 255, 0.16);
+      --card-border-hover: rgba(210, 222, 255, 0.42);
+      --font-sans: "Inter", "Noto Sans TC", system-ui, -apple-system, sans-serif;
+      --font-serif: "Noto Serif TC", serif;
+      --max: 1120px;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    html { background: var(--night-0); }
+    /* html 負責擋住橫向捲動；body 用 clip 不會建立捲動容器，sticky 導覽列才不會失效 */
+    html { background: var(--night-0); scroll-behavior: smooth; overflow-x: hidden; }
 
     body {
       position: relative;
+      width: 100%;
+      max-width: 100%;
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px 16px;
-      overflow-x: hidden;
-      font-family: "Noto Sans TC", system-ui, sans-serif;
+      overflow-x: clip;
+      font-family: var(--font-sans);
+      line-height: 1.6;
       color: var(--star);
+      -webkit-font-smoothing: antialiased;
       background:
-        radial-gradient(ellipse 60% 45% at 78% 18%, rgba(88, 70, 190, 0.35), transparent 70%),
-        radial-gradient(ellipse 55% 40% at 15% 85%, rgba(40, 90, 200, 0.30), transparent 70%),
-        radial-gradient(ellipse 120% 80% at 50% 110%, var(--night-2), transparent 60%),
+        radial-gradient(ellipse 60% 45% at 80% 10%, rgba(88, 70, 190, 0.38), transparent 70%),
+        radial-gradient(ellipse 55% 40% at 10% 60%, rgba(40, 90, 200, 0.26), transparent 70%),
+        radial-gradient(ellipse 120% 70% at 50% 115%, var(--night-2), transparent 60%),
         linear-gradient(180deg, var(--night-0) 0%, var(--night-1) 55%, #0d1748 100%);
       background-attachment: fixed;
     }
 
-    /* 星空層：細小星點 */
-    body::before,
-    body::after {
-      content: "";
+    a { color: inherit; text-decoration: none; }
+    img, svg, video { max-width: 100%; }
+    h1, h2, h3, p { overflow-wrap: break-word; }
+
+    /* ── 星空背景（延續個人品牌） ───────────────── */
+    .sky, .sky::after {
       position: fixed;
       inset: -50%;
       pointer-events: none;
       z-index: 0;
     }
-
-    body::before {
+    .sky {
       background-image:
         radial-gradient(1px 1px at 20px 30px, var(--star), transparent),
         radial-gradient(1px 1px at 140px 70px, var(--star-soft), transparent),
@@ -63,12 +72,12 @@
         radial-gradient(1px 1px at 100px 230px, var(--star-soft), transparent),
         radial-gradient(1px 1px at 260px 140px, var(--star-dim), transparent);
       background-size: 280px 260px;
-      opacity: 0.8;
+      opacity: 0.7;
       animation: drift 240s linear infinite;
     }
-
-    /* 星空層：較亮、會閃爍的星 */
-    body::after {
+    .sky::after {
+      content: "";
+      inset: 0;
       background-image:
         radial-gradient(1.6px 1.6px at 50px 80px, var(--star), transparent),
         radial-gradient(2px 2px at 330px 210px, var(--star), transparent),
@@ -76,36 +85,24 @@
         radial-gradient(1.8px 1.8px at 420px 60px, var(--star), transparent),
         radial-gradient(1.4px 1.4px at 120px 420px, var(--star-soft), transparent);
       background-size: 480px 480px;
-      animation: drift 160s linear infinite reverse, twinkle 4.5s ease-in-out infinite;
+      animation: twinkle 4.5s ease-in-out infinite;
     }
-
-    @keyframes drift {
-      from { transform: translate3d(0, 0, 0); }
-      to   { transform: translate3d(-280px, -260px, 0); }
-    }
-
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.95; }
-      50%      { opacity: 0.35; }
-    }
-
-    /* 流星 */
-    html::after {
-      content: "";
+    .meteor {
       position: fixed;
-      top: 14%;
-      left: 82%;
+      top: 12%;
+      left: 84%;
       width: 140px;
       height: 1.5px;
       background: linear-gradient(90deg, transparent, rgba(255,255,255,0.9));
       border-radius: 999px;
-      transform: rotate(145deg) translateX(0);
       opacity: 0;
       pointer-events: none;
-      animation: meteor 9s ease-in 3s infinite;
       z-index: 0;
+      animation: meteor 10s ease-in 3s infinite;
     }
 
+    @keyframes drift   { to { transform: translate3d(-280px, -260px, 0); } }
+    @keyframes twinkle { 0%, 100% { opacity: 0.95; } 50% { opacity: 0.35; } }
     @keyframes meteor {
       0%   { opacity: 0; transform: rotate(145deg) translateX(0); }
       3%   { opacity: 1; }
@@ -113,187 +110,546 @@
       100% { opacity: 0; transform: rotate(145deg) translateX(420px); }
     }
 
-    .card {
+    /* ── 版面 ───────────────── */
+    .container {
       position: relative;
       z-index: 1;
       width: 100%;
-      max-width: 460px;
-      padding: 52px 36px 42px;
-      text-align: center;
-      background:
-        linear-gradient(160deg, rgba(255,255,255,0.07), transparent 40%),
-        var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 28px;
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── 導覽列 ───────────────── */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
-      box-shadow:
-        0 0 0 1px rgba(255, 255, 255, 0.03) inset,
-        0 30px 80px rgba(0, 0, 10, 0.55),
-        0 0 60px rgba(90, 120, 255, 0.12);
-      animation: rise 0.9s ease-out both;
+      background: rgba(3, 6, 26, 0.55);
+      border-bottom: 1px solid rgba(190, 205, 255, 0.08);
     }
-
-    @keyframes rise {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
+    .nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
     }
-
-    .avatar {
-      position: relative;
-      width: 112px;
-      height: 112px;
-      margin: 0 auto 22px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      font-family: "Noto Serif TC", serif;
-      font-size: 46px;
-      font-weight: 700;
-      color: #0a1238;
-      background:
-        radial-gradient(circle at 35% 30%, #ffffff 0%, #e6ecff 35%, #aebcf0 75%, #7d8fd6 100%);
-      box-shadow:
-        0 0 24px var(--glow),
-        0 0 70px rgba(120, 150, 255, 0.25);
-    }
-
-    /* 環繞頭像的軌道 */
-    .avatar::after {
-      content: "";
-      position: absolute;
-      inset: -12px;
-      border-radius: 50%;
-      border: 1px dashed rgba(200, 215, 255, 0.35);
-      animation: orbit 30s linear infinite;
-    }
-
-    .avatar::before {
-      content: "";
-      position: absolute;
-      top: -15px;
-      left: 50%;
-      width: 6px;
-      height: 6px;
-      margin-left: -3px;
-      border-radius: 50%;
-      background: var(--star);
-      box-shadow: 0 0 10px var(--star), 0 0 18px var(--glow);
-      transform-origin: 3px 71px;
-      animation: orbit 12s linear infinite;
-    }
-
-    @keyframes orbit {
-      to { transform: rotate(360deg); }
-    }
-
-    h1 {
-      font-family: "Noto Serif TC", serif;
-      font-size: 2.1rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-shadow: 0 0 18px rgba(170, 195, 255, 0.55);
-    }
-
-    .subtitle {
-      margin-top: 8px;
-      font-size: 0.95rem;
-      font-weight: 300;
-      color: var(--star-soft);
-    }
-
-    .section-title {
+    .brand {
       display: flex;
       align-items: center;
       gap: 12px;
-      margin: 34px 0 16px;
-      font-size: 0.78rem;
-      font-weight: 500;
-      letter-spacing: 0.3em;
-      color: var(--star-dim);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-family: var(--font-serif);
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--night-1);
+      background: radial-gradient(circle at 35% 30%, #fff 0%, #e6ecff 35%, #aebcf0 75%, #7d8fd6 100%);
+      box-shadow: 0 0 16px var(--glow);
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+      font-size: 0.92rem;
+      color: var(--star-soft);
+    }
+    .nav-links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      min-width: 44px;
+      justify-content: center;
+      transition: color 0.2s ease;
+    }
+    .nav-links a:hover { color: var(--star); }
+
+    /* ── 英雄區塊 ───────────────── */
+    .hero {
+      min-height: calc(100vh - 68px);
+      display: flex;
+      align-items: center;
+      padding: 96px 0 120px;
+    }
+    .hero-inner { max-width: 820px; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 16px 7px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--card-border);
+      background: rgba(255, 255, 255, 0.04);
+      font-size: 0.85rem;
+      color: var(--star-soft);
+    }
+    .eyebrow .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #7ef0b5;
+      box-shadow: 0 0 0 0 rgba(126, 240, 181, 0.6);
+      animation: pulse 2.4s ease-out infinite;
+    }
+    @keyframes pulse {
+      0%   { box-shadow: 0 0 0 0 rgba(126, 240, 181, 0.55); }
+      70%  { box-shadow: 0 0 0 9px rgba(126, 240, 181, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(126, 240, 181, 0); }
     }
 
-    .section-title::before,
-    .section-title::after {
-      content: "";
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(200, 215, 255, 0.4), transparent);
+    .hero h1 {
+      --h1-desktop: clamp(2.6rem, 6.4vw, 4.6rem);
+      margin-top: 28px;
+      font-size: var(--h1-desktop);
+      font-weight: 800;
+      line-height: 1.12;
+      letter-spacing: -0.025em;
+    }
+    .hero h1 .grad {
+      background: linear-gradient(100deg, #ffffff 0%, var(--accent) 45%, var(--accent-2) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: none;
+      filter: drop-shadow(0 0 22px rgba(150, 175, 255, 0.35));
+    }
+    .hero .lead {
+      margin-top: 24px;
+      max-width: 620px;
+      font-size: clamp(1.02rem, 1.6vw, 1.18rem);
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--star-soft);
     }
 
-    .interests {
+    .cta {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
+      gap: 14px;
+      margin-top: 40px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
       gap: 10px;
-      list-style: none;
-    }
-
-    .interests li {
-      padding: 8px 18px;
+      min-height: 44px;
+      max-width: 100%;
+      padding: 15px 28px;
       border-radius: 999px;
-      background: var(--chip-bg);
-      border: 1px solid var(--card-border);
-      font-size: 0.95rem;
-      transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      font-size: 0.98rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, border-color 0.25s ease;
     }
-
-    .interests li:hover {
-      transform: translateY(-3px);
-      background: rgba(150, 175, 255, 0.14);
-      border-color: rgba(210, 222, 255, 0.5);
-      box-shadow: 0 0 18px rgba(140, 170, 255, 0.35);
+    .btn svg { width: 18px; height: 18px; transition: transform 0.25s ease; }
+    .btn-primary {
+      color: var(--night-1);
+      background: linear-gradient(135deg, #ffffff 0%, #d8e0ff 55%, #c3b5ff 100%);
+      box-shadow: 0 10px 30px rgba(140, 160, 255, 0.35), 0 0 0 1px rgba(255,255,255,0.4) inset;
     }
-
-    blockquote {
-      position: relative;
-      margin-top: 34px;
-      padding: 22px 26px;
-      border-radius: 18px;
-      background: linear-gradient(135deg, rgba(120, 140, 255, 0.10), rgba(255, 255, 255, 0.03));
-      border: 1px solid rgba(190, 205, 255, 0.14);
-      font-family: "Noto Serif TC", serif;
-      font-size: 1.05rem;
-      line-height: 1.8;
-      letter-spacing: 0.04em;
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 40px rgba(140, 160, 255, 0.5), 0 0 0 1px rgba(255,255,255,0.6) inset;
+    }
+    .btn-primary:hover svg { transform: translateX(3px); }
+    .btn-ghost {
       color: var(--star);
+      border: 1px solid var(--card-border-hover);
+      background: rgba(255, 255, 255, 0.04);
+    }
+    .btn-ghost:hover {
+      transform: translateY(-2px);
+      background: rgba(150, 175, 255, 0.12);
+      border-color: rgba(220, 230, 255, 0.65);
+    }
+    .btn-ghost:hover svg { transform: translateY(2px); }
+    .btn:focus-visible, .nav-links a:focus-visible, .project:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
     }
 
-    blockquote::before {
-      content: "“";
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 44px;
+      margin-top: 64px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(190, 205, 255, 0.1);
+    }
+    .stat strong {
+      display: block;
+      font-size: 1.9rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .stat span { font-size: 0.86rem; color: var(--star-dim); }
+
+    /* ── 精選作品 ───────────────── */
+    .work { padding: 40px 0 140px; }
+    .section-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+    .kicker {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .section-head h2 {
+      margin-top: 12px;
+      font-size: clamp(1.9rem, 3.6vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .section-head p {
+      max-width: 380px;
+      color: var(--star-dim);
+      font-size: 0.98rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .project {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding: 32px 30px 28px;
+      border-radius: 24px;
+      background:
+        linear-gradient(160deg, rgba(255,255,255,0.06), transparent 45%),
+        var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 24px 60px rgba(0, 0, 10, 0.4);
+      overflow: hidden;
+      transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+    }
+    .project::before {
+      content: "";
       position: absolute;
-      top: -20px;
-      left: 16px;
-      font-size: 3.5rem;
-      line-height: 1;
-      color: #c9d6ff;
-      opacity: 0.7;
-      text-shadow: 0 0 12px var(--glow);
+      inset: -1px;
+      border-radius: inherit;
+      background: radial-gradient(420px circle at 0% 0%, rgba(150, 175, 255, 0.16), transparent 50%);
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      pointer-events: none;
+    }
+    .project:hover {
+      transform: translateY(-6px);
+      border-color: var(--card-border-hover);
+      box-shadow: 0 30px 70px rgba(0, 0, 10, 0.5), 0 0 50px rgba(110, 140, 255, 0.18);
+    }
+    .project:hover::before { opacity: 1; }
+
+    .icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(169, 184, 255, 0.22), rgba(199, 169, 255, 0.12));
+      border: 1px solid rgba(200, 215, 255, 0.25);
+      box-shadow: 0 0 24px rgba(130, 160, 255, 0.2);
+    }
+    .icon svg { width: 26px; height: 26px; stroke: #e2e8ff; }
+
+    .tag {
+      margin-top: 26px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+    }
+    .project h3 {
+      margin-top: 8px;
+      font-size: 1.32rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    .project p {
+      margin-top: 12px;
+      flex: 1;
+      font-size: 0.95rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--star-soft);
+    }
+    .project .meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 28px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(190, 205, 255, 0.1);
+      font-size: 0.85rem;
+      color: var(--star-dim);
+    }
+    .project .meta svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--star-soft);
+      transition: transform 0.3s ease;
+    }
+    .project:hover .meta svg { transform: translate(3px, -3px); }
+
+    /* ── 聯繫橫幅 ───────────────── */
+    .contact {
+      margin-bottom: 96px;
+      padding: 56px 48px;
+      border-radius: 28px;
+      text-align: center;
+      background:
+        radial-gradient(ellipse 70% 120% at 50% 0%, rgba(120, 140, 255, 0.22), transparent 70%),
+        var(--card-bg);
+      border: 1px solid var(--card-border);
+    }
+    .contact h2 {
+      font-size: clamp(1.6rem, 3.2vw, 2.2rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .contact p {
+      margin: 14px auto 32px;
+      max-width: 460px;
+      color: var(--star-soft);
+      font-weight: 300;
     }
 
-    @media (max-width: 480px) {
-      .card { padding: 44px 22px 34px; }
-      h1 { font-size: 1.8rem; }
+    /* ── 頁尾 ───────────────── */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid rgba(190, 205, 255, 0.08);
+      background: rgba(3, 6, 26, 0.45);
+    }
+    footer .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding-top: 32px;
+      padding-bottom: 32px;
+      font-size: 0.86rem;
+      color: var(--star-dim);
+    }
+    footer .quote { font-family: var(--font-serif); letter-spacing: 0.06em; }
+
+    /* ── 淡入動畫 ───────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade { animation: fadeUp 0.9s cubic-bezier(.2,.7,.2,1) both; }
+    .d1 { animation-delay: 0.1s; }
+    .d2 { animation-delay: 0.22s; }
+    .d3 { animation-delay: 0.34s; }
+    .d4 { animation-delay: 0.46s; }
+    .d5 { animation-delay: 0.6s; }
+
+    /* 捲動到才淡入（無 JS 時內容照常顯示） */
+    .js .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.8s ease, transform 0.8s cubic-bezier(.2,.7,.2,1);
+      transition-delay: var(--delay, 0s);
+    }
+    .js .reveal.in { opacity: 1; transform: none; }
+    .js .project.reveal.in:hover { transform: translateY(-6px); transition-delay: 0s; }
+
+    /* ── 響應式 ───────────────── */
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      .container { padding: 0 16px; }
+      .nav-links { gap: 20px; }
+      .nav-links li:not(:last-child) { display: none; }
+      .hero { padding: 64px 0 80px; min-height: auto; }
+      /* 大標題縮為桌面版的 75% */
+      .hero h1 { font-size: calc(var(--h1-desktop) * 0.75); margin-top: 22px; }
+      /* 三張作品卡片單欄垂直排列 */
+      .grid { grid-template-columns: 1fr; gap: 18px; }
+      .project { padding: 26px 22px 22px; border-radius: 20px; }
+      .stats { gap: 28px; margin-top: 48px; }
+      .section-head { margin-bottom: 32px; }
+      .work { padding: 24px 0 96px; }
+      .contact { padding: 44px 22px; margin-bottom: 64px; }
+      .btn { flex: 1 1 auto; justify-content: center; min-height: 48px; padding: 13px 22px; }
+      .contact .btn { width: 100%; }
+      footer .container { flex-direction: column; text-align: center; }
+    }
+    @media (max-width: 400px) {
+      .stats { gap: 20px; justify-content: space-between; }
+      .stat strong { font-size: 1.6rem; }
+      .eyebrow { font-size: 0.8rem; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation: none !important; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .js .reveal { opacity: 1; transform: none; }
+      html { scroll-behavior: auto; }
     }
   </style>
 </head>
 <body>
-  <main class="card">
-    <div class="avatar">S</div>
-    <h1>Sherry</h1>
-    <p class="subtitle">很高興認識你 👋</p>
+  <div class="sky" aria-hidden="true"></div>
+  <div class="meteor" aria-hidden="true"></div>
 
-    <p class="section-title">我的興趣</p>
-    <ul class="interests">
-      <li>✈️ 旅行</li>
-      <li>✍️ 文字創作</li>
-    </ul>
+  <header class="nav">
+    <div class="container">
+      <a href="#top" class="brand" aria-label="Sherry 首頁">
+        <span class="brand-mark">S</span>
+        <span>Sherry Studio</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#work">作品</a></li>
+        <li><a href="#contact">聯繫</a></li>
+      </ul>
+    </div>
+  </header>
 
-    <blockquote>我就站在這裡，為了相遇而存在。</blockquote>
+  <main id="top">
+    <!-- 英雄區塊 -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-inner">
+          <span class="eyebrow fade d1"><span class="dot"></span>目前開放接案中 · 2026</span>
+          <h1 class="fade d2">用文字與設計，<br>為品牌<span class="grad">說一個好故事</span></h1>
+          <p class="lead fade d3">
+            我是 Sherry，一位專注於品牌文案、網站設計與內容企劃的自由工作者。
+            從旅行中蒐集靈感、在文字裡雕琢細節，陪你把想法變成讓人記得的作品。
+          </p>
+          <div class="cta fade d4">
+            <a href="#contact" class="btn btn-primary">
+              與我聯繫
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a href="#work" class="btn btn-ghost">
+              觀看作品
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+            </a>
+          </div>
+          <div class="stats fade d5">
+            <div class="stat"><strong>40+</strong><span>完成專案</span></div>
+            <div class="stat"><strong>25</strong><span>合作品牌</span></div>
+            <div class="stat"><strong>98%</strong><span>客戶回購率</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 精選作品 -->
+    <section class="work" id="work">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <p class="kicker">Selected Work</p>
+            <h2>精選作品</h2>
+          </div>
+          <p>每個專案都從理解開始。以下是近期最具代表性的三個合作案例。</p>
+        </div>
+
+        <div class="grid">
+          <a href="#contact" class="project reveal" style="--delay: 0s">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+            </span>
+            <p class="tag">品牌文案 · Brand Copywriting</p>
+            <h3>拾光咖啡品牌故事</h3>
+            <p>為在地精品咖啡館重新梳理品牌定位，撰寫品牌故事、菜單文案與社群語調指南，上線三個月社群互動率成長 2.3 倍。</p>
+            <div class="meta">
+              <span>2026 · 品牌重塑</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+            </div>
+          </a>
+
+          <a href="#contact" class="project reveal" style="--delay: 0.12s">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+            </span>
+            <p class="tag">網站設計 · Web Design</p>
+            <h3>漫遊誌旅行部落格</h3>
+            <p>從資訊架構到視覺設計，打造以故事為核心的旅遊內容網站。響應式版面搭配沉浸式閱讀體驗，平均停留時間提升 68%。</p>
+            <div class="meta">
+              <span>2026 · 網站改版</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+            </div>
+          </a>
+
+          <a href="#contact" class="project reveal" style="--delay: 0.24s">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.6H20l-4.9 3.6 1.9 5.6L12 14.3 7 17.8l1.9-5.6L4 8.6h6.1Z"/></svg>
+            </span>
+            <p class="tag">內容企劃 · Content Strategy</p>
+            <h3>星語永續選物電子報</h3>
+            <p>為永續生活選物品牌規劃每週電子報與內容日曆，結合品牌理念與產品故事，開信率穩定維持在 45% 以上。</p>
+            <div class="meta">
+              <span>2025 · 長期合作</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 聯繫 -->
+    <section id="contact">
+      <div class="container">
+        <div class="contact reveal">
+          <p class="kicker">Let's work together</p>
+          <h2 style="margin-top: 12px">有個想法？我們聊聊吧</h2>
+          <p>不論是品牌文案、網站設計或內容企劃，歡迎來信告訴我你的需求，我會在兩個工作天內回覆。</p>
+          <a href="mailto:hello@example.com" class="btn btn-primary">
+            寄信給我
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <footer>
+    <div class="container">
+      <span>© <span id="year">2026</span> Sherry Studio. All rights reserved.</span>
+      <span class="quote">我就站在這裡，為了相遇而存在。</span>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const items = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+      items.forEach((el) => io.observe(el));
+    } else {
+      items.forEach((el) => el.classList.add('in'));
+    }
+  </script>
 </body>
 </html>
